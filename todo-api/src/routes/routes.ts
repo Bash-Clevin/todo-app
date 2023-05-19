@@ -1,6 +1,4 @@
 import Express from "express";
-import redisClient from "../lib/createRedisClient.js";
-import postgresClient from "../lib/createPgClient.js";
 import todos from "../interfaces/todos.js";
 import { insertToPostgres, insertToRedis } from "../lib/insertData.js";
 const app = Express();
@@ -14,7 +12,7 @@ router.route("/api/v1/todos").post(async (req, res) => {
 
   const query = "INSERT INTO todo (title) VALUES($1)";
   console.log("Called Get api/v1/todos");
-  // res.setHeader("Content-Type", "application/json");
+  res.setHeader("Content-Type", "application/json");
 
   await insertToRedis(todoTitle);
 
