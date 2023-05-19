@@ -1,28 +1,26 @@
 import Express from "express";
 import redisClient from "../lib/createRedisClient.js";
+import postgresClient from "../lib/createPgClient.js";
+import todos from "../interfaces/todos.js";
+import { insertToPostgres, insertToRedis } from "../lib/insertData.js";
 const app = Express();
 const router = Express.Router();
-
-interface todos {
-  key: string;
-  title: string;
-}
 
 router.route("/api/v1/todos").post(async (req, res) => {
   const todoTitle: todos = {
     key: req.body.key,
     title: req.body.title,
   };
+
+  const query = "INSERT INTO todo (title) VALUES($1)";
   console.log("Called Get api/v1/todos");
   // res.setHeader("Content-Type", "application/json");
 
-  try {
-    await redisClient.set(todoTitle.key, todoTitle.title);
-    console.log(`Added Todo: [${todoTitle.title}] to cache`);
-    res.status(201).send(req.body);
-  } catch (error) {
-    console.log("Could not cache to redis", error);
-  }
+  await insertToRedis(todoTitle);
+
+  await insertToPostgres(todoTitle, query);
+
+  res.status(201).send(req.body);
 });
 
 router.route("/api/v1/todos").post(async (req, res) => {});
