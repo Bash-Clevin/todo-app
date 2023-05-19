@@ -1,5 +1,7 @@
-import { Client } from "pg";
+import pg from "pg";
 import env from "./env.js";
+
+const { Client } = pg;
 
 const postgresClient = new Client({
   user: env.postgresUser,
