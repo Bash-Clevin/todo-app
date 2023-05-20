@@ -21,7 +21,7 @@ export async function insertToPostgres(params: todos, query: string) {
   }
 }
 
-export async function UpdateElasticSearch(
+export async function updateElasticSearch(
   params: elasticProperies,
   data: todos
 ) {
