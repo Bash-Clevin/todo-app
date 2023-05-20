@@ -1,4 +1,5 @@
-import todos from "../interfaces/todos.js";
+import { todos, elasticProperies } from "../interfaces/todos.js";
+import elasticClient from "./createElasticSearchClient.js";
 import postgresClient from "./createPgClient.js";
 import redisClient from "./createRedisClient.js";
 
@@ -17,5 +18,16 @@ export async function insertToPostgres(params: todos, query: string) {
     console.log(`Added Todo: [${params.title}] to postgres DB`);
   } catch (error) {
     console.log("Error inserting data to postgres", error);
+  }
+}
+
+export async function updateElasticSearch(index: string, data: todos) {
+  try {
+    await elasticClient.index({
+      index: index,
+      document: { todotext: data.title },
+    });
+  } catch (error) {
+    console.log(`Coluld not index ${data.title}`, error);
   }
 }

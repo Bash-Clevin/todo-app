@@ -1,8 +1,14 @@
 import Express from "express";
-import todos from "../interfaces/todos.js";
-import { insertToPostgres, insertToRedis } from "../lib/insertData.js";
+import { todos } from "../interfaces/todos.js";
+import {
+  insertToPostgres,
+  insertToRedis,
+  updateElasticSearch,
+} from "../lib/insertData.js";
 const app = Express();
 const router = Express.Router();
+const searchIndexName = "todos";
+const searchIndexType = "todo";
 
 router.route("/api/v1/todos").post(async (req, res) => {
   const todoTitle: todos = {
@@ -17,6 +23,8 @@ router.route("/api/v1/todos").post(async (req, res) => {
   await insertToRedis(todoTitle);
 
   await insertToPostgres(todoTitle, query);
+
+  await updateElasticSearch(searchIndexName, todoTitle);
 
   res.status(201).send(req.body);
 });
