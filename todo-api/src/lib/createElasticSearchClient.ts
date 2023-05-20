@@ -1,7 +1,7 @@
 import { Client } from "@elastic/elasticsearch";
 
 const elasticClient = new Client({
-  node: "elasticsearch://172.17.0.3:9200",
+  node: "https://172.17.0.3:9200",
 });
 
 try {
