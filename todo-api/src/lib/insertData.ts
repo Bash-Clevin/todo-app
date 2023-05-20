@@ -21,13 +21,10 @@ export async function insertToPostgres(params: todos, query: string) {
   }
 }
 
-export async function updateElasticSearch(
-  params: elasticProperies,
-  data: todos
-) {
+export async function updateElasticSearch(index: string, data: todos) {
   try {
     await elasticClient.index({
-      index: params.index,
+      index: index,
       document: { todotext: data.title },
     });
   } catch (error) {
