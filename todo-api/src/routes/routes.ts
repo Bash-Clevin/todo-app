@@ -17,8 +17,7 @@ router.route("/api/v1/todos").post(async (req, res) => {
   };
 
   const query = "INSERT INTO todo (title) VALUES($1)";
-  console.log("Called Get api/v1/todos");
-  res.setHeader("Content-Type", "application/json");
+  console.log("Called Post api/v1/todos");
 
   await insertToRedis(todoTitle);
 
@@ -29,7 +28,7 @@ router.route("/api/v1/todos").post(async (req, res) => {
   res.status(201).send(req.body);
 });
 
-router.route("/api/v1/todos").post(async (req, res) => {});
+router.route("/api/v1/todos").get(async (req, res) => {});
 
 router.route("/api/v1/search").post(async (req, res) => {});
 
