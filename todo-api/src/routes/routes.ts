@@ -12,8 +12,8 @@ const searchIndexType = "todo";
 
 router.route("/api/v1/todos").post(async (req, res) => {
   const todoTitle: todos = {
-    key: req.body.key,
-    title: req.body.title,
+    key: "todo",
+    title: req.body.value,
   };
 
   const query = "INSERT INTO todo (title) VALUES($1)";
