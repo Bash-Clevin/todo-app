@@ -2,12 +2,13 @@ import Express from "express";
 import bodyParser from "body-parser";
 import router from "./routes/routes.js";
 import cors from "cors";
+import env from "./lib/env.js";
 
 const app = Express();
 
 const port = 4000;
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: `http://${env.todoClientHost}:${env.todoClientPORT}`,
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
