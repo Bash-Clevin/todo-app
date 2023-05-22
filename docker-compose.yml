@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  todo-redis:
+    container_name: todo-redis
+    image: redis:7.2-rc2
+    ports:
+      - 6379:6379
+  todo-postgres:
+    container_name: todo-postgres
+    build:
+      context: ./todo-client
+      dockerfile: Dockerfile.dev
+    image: todo-postgres:1.0   
+    env_file:
+      - .env-postgres    
+    ports:
+      - 5432:5432  
+  todo-elastic:
+    container_name: todo-elastic
+    image: elasticsearch:8.7.1
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery-type=single-node
+  todo-api:
+    container_name: todo-api
+    build:
+      context: ./todo-api
+      dockerfile: Dockerfile.dev
+    image: todo-api:1.0  
+    env_file:
+      - .env_api
+    ports:
+      - 4000:400
+    volumes:
+      - /app/node_modulesexecutable
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://todo-elastic:9200"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 5s
+    depends_on:
+      - todo-redis
+      - todo-postgres
+      - todo-elastic
+  todo-client:
+    container_name: todo-client
+    build:
+      context: ./todo-client
+      dockerfile: Dockerfile.dev
+    image: todo-client:1.0
+    ports:
+      - 3000:3000
+    volumes:
+      - ${PWD}/todo-client:/app
+      - /app/node_modules
+    depends_on:
+      - todo-api
+  todo-proxy:
+    container_name: todo-proxy
+    build:
+      context: ./todo-proxy
+      dockerfile: Dockerfile.dev
+    image: todo-proxy:1.0
+    ports:
+      - 8080:80
+    depends_on:
+      - todo-api
+      - todo-client
