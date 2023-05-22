@@ -8,6 +8,8 @@ const env = {
   redisPort: process.env.REDIS_PORT,
   elasticHost: process.env.ELASTICSEARCH_HOST,
   elasticPort: process.env.ELASTICSEARCH_PORT,
+  todoClientHost: process.env.TODOCLIENT_HOST,
+  todoClientPORT: process.env.TODOCLIENT_PORT,
 };
 
 export default env;
