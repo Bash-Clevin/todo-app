@@ -1,7 +1,8 @@
 import { Client } from "@elastic/elasticsearch";
+import env from "./env.js";
 
 const elasticClient = new Client({
-  node: "https://172.17.0.3:9200",
+  node: `http://${env.elasticHost}:${env.elasticPort}`,
 });
 
 try {
