@@ -1,9 +1,16 @@
 import Express from "express";
 import bodyParser from "body-parser";
 import router from "./routes/routes.js";
+import cors from "cors";
+
 const app = Express();
 
-const port = 3000;
+const port = 4000;
+const corsOptions = {
+  origin: "http://localhost:3000",
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
