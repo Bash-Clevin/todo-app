@@ -1,14 +1,11 @@
 import React from 'react';
 import './App.css';
+import FormData from './components/FormData';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Test React
-        </p>        
-      </header>
+    <div className="App">      
+       <FormData />     
     </div>
   );
 }
