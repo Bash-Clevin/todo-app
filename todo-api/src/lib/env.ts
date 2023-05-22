@@ -4,7 +4,8 @@ const env = {
   postgresDatabase: process.env.POSTGRES_DATABASE,
   postgresUser: process.env.POSTGRES_USER,
   postgresPassword: process.env.POSTGRES_PASSWORD,
-  redisUrl: process.env.REDIS_URL,
+  redisHost: process.env.REDIS_HOST,
+  redisPort: process.env.REDIS_PORT,
   elasticHost: process.env.ELASTICSEARCH_HOST,
   elasticPort: process.env.ELASTICSEARCH_PORT,
 };
