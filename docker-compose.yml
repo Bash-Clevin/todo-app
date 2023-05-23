@@ -33,7 +33,7 @@ services:
     env_file:
       - .env_api
     ports:
-      - 4000:400
+      - 4000:4000
     volumes:
       - /app/node_modulesexecutable
     healthcheck:
