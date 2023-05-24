@@ -1,0 +1,2 @@
+FROM postgres:15.3
+COPY CreateTodoTable.sql /docker-entrypoint-initdb.d/
