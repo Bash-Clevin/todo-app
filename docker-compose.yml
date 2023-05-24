@@ -17,14 +17,6 @@ services:
       - .env-postg    
     ports:
       - 5432:5432     
-  # todo-elastic:
-  #   container_name: todo-elastic
-  #   image: elasticsearch:8.7.1
-  #   ports:
-  #     - 9200:9200
-  #     - 9300:9300
-  #   environment:
-  #     - discovery-type=single-node
   todo-api:
     container_name: todo-api
     build:
