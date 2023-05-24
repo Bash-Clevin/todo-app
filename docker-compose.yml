@@ -9,13 +9,14 @@ services:
   todo-postgres:
     container_name: todo-postgres
     build:
-      context: ./todo-client
+      context: ./todo-postgres
       dockerfile: Dockerfile.dev
-    image: todo-postgres:1.0   
+    image: todo-postgres:1.0 
+    restart: always
     env_file:
-      - .env-postgres    
+      - .env-postg    
     ports:
-      - 5432:5432  
+      - 5432:5432     
   # todo-elastic:
   #   container_name: todo-elastic
   #   image: elasticsearch:8.7.1
