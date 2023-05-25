@@ -21,8 +21,11 @@ function FormData(): React.JSX.Element {
     <div>
    
     <form onSubmit={handleDataSubmit}>
-      <input type="text" name="todo" value={data} onChange={handleDataChange} />
-      <button type='submit'>Add todo</button>
+      <div className="form-group">
+        <label>Todo</label>
+        <input className='form-control' type="text" name="todo" value={data} onChange={handleDataChange} />
+      </div>
+      <button className='btn btn-primary' type='submit'>Submit</button>
     </form> 
     </div>    
   )

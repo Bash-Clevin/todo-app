@@ -4,7 +4,7 @@ import redisClient from "./createRedisClient.js";
 
 export async function insertToRedis(params: todos) {
   try {
-    await redisClient.set(params.key, params.title);
+    await redisClient.sAdd(params.key, params.title);
     console.log(`Added Todo: [${params.title}] to cache`);
   } catch (error) {
     console.log("Could not cache to redis", error);
